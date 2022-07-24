@@ -208,11 +208,15 @@ onChangeIndex = function(Index, societyName, value)
 end
 
 AddEventHandler('esx_society:openBossMenu', function(society)
-	ESX.TriggerServerCallback('esx_society:getSocietyMoney', function(societyMoney)
-		money = societyMoney
-	end, society)
+    if (ESX.PlayerData.job.name == society and ESX.PlayerData.job.grade_name == "boss")
+            or (ESX.PlayerData.orga.name == society and ESX.PlayerData.orga.grade_name == "boss")
+    then
+        ESX.TriggerServerCallback('esx_society:getSocietyMoney', function(societyMoney)
+            money = societyMoney
+        end, society)
 
-	MFAClient.OpenMenu('Menu Principal', function()
-		menuPrincipal(society)
-	end, 0)
+        MFAClient.OpenMenu('Menu Principal', function()
+            menuPrincipal(society)
+        end, 0)
+    end 
 end)
